@@ -41,7 +41,7 @@ Download zip file and then unzip it inside of directory: C:\Users\ ... \Document
    ```ruby
     uint16_t Save_Msg(char* temp);
     ```
-     It is used to store a word in the CCEEPROM. The argument ```char* temp ``` is used to acces the char array where data (word) is temporarily stored in RAM. This function resets the indexes ```Find``` (Forward word index) and ```Bind``` (Backward word index) (both now pointing at the position into which the null character of the CCEPROM-inserted word is stored -this value is returned-). After each word registration the function also updates the value of index ```ind``` pointing ```+ 1``` position from indexes ```Bind, Find```.
+     It is used to store a word in the CCEEPROM. The argument ```char* temp ``` is used to access the char array where data (word) is temporarily stored in RAM. This function resets the indexes ```Find``` (Forward word index) and ```Bind``` (Backward word index) (both now pointing at the position into which the null character of the CCEPROM-inserted word is stored -this value is returned-). After each word registration the function also updates the value of index ```ind``` pointing ```+ 1``` position from indexes ```Bind, Find```.
      
     ```ruby
     uint16_t Get_Index(char mode='a');
@@ -81,7 +81,7 @@ Download zip file and then unzip it inside of directory: C:\Users\ ... \Document
      
 ## NOTES
 - Upload INITIALIZE_CCircularEEPROM_objects.ino sketch to initialize your desired CCEEPROM structure(s).
-- After INITIALIZATION, you may use GLOBAL CCEEPROM object(s) (with the same parameters as it was initialazed) in your sketch.
+- After INITIALIZATION, you may use GLOBAL CCEEPROM object(s) (with the same parameters as it was initialized) in your sketch.
 - You may use interrupt driven routines where you call 
     ```ruby
     uint16_t Save_Msg(char* temp);
@@ -90,7 +90,7 @@ Download zip file and then unzip it inside of directory: C:\Users\ ... \Document
 - Save the index ```ind``` when necessary.
 - Knowing the number of W-cycles of arduino eeprom cells (100.000) and the frequency of writing data into the CCEEPROM structure, you can calculate when one entire cycle is completed (indicates one W-cycle for all data cells) and also make a aproximation of lifespan for the CCEEPROM structure.
 - When the data saving process fails, a message is displayed in Serial Monitor and the code halts (entered an infinate while loop).
-- With the use of C++ / C library functions you can convert other data types (floats, integers etc) into character tables and then import them into the CCEEPROM structure.
+- With the use of C++ / C library functions you can convert other data types (floats, integers etc) into character arrays and then import them into the CCEEPROM structure.
     
     
     
