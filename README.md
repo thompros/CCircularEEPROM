@@ -35,23 +35,25 @@ Download zip file and then unzip it inside of directory: C:\Users\ ... \Document
     ```ruby
     CCircularEEPROM(uint16_t start, uint16_t endd, bool _new=false); 
     ```
-    ```start```, ```endd``` arguments define the length of the CCEEPROM queue. Set ```_new``` argument as ```true``` at initialization  of a new instance. In this way you reset any data may had been stored between [start , endd] and the index ```ind``` points at the first data cell. If a CCEEPROM object is declared using argument ```_new=false``` (when the CCEEPROM structure was initialized in previous sketch) the object's current index ```ind``` retrieves its initial value from status cells.
+    ```start```, ```endd``` arguments define the length of the CCEEPROM queue. You may set ```_new``` argument as ```true``` on initialization  of a new instance. By doing this, any data may had been stored between [start , endd] is cleared and the index ```ind``` points at the first data cell. If a CCEEPROM object is declared using argument ```_new=false``` (when the CCEEPROM structure was initialized in any previous sketch) the object's current index ```ind``` retrieves its initial value from status cells.
 
 2. Functions
    ```ruby
     uint16_t Save_Msg(char* temp);
     ```
-     It is used to store a word in the CCEEPROM. The argument ```char* temp ``` is used to access the char array where data (word) is temporarily stored in RAM. This function resets the indexes ```Find``` (Forward word index) and ```Bind``` (Backward word index) (both now pointing at the position into which the null character of the CCEPROM-inserted word is stored -this value is returned-). After each word registration the function also updates the value of index ```ind``` pointing ```+ 1``` position from indexes ```Bind, Find```.
-     
+     It is used to store a word in the CCEEPROM and take as argument the char array which contains the word. Also, this function updates the indexes ```Find``` (Forward word index) and ```Bind``` (Backward word index) so they point at the position into which the null character of the CCEPROM-inserted word is stored. This position is returned after function's execution. Finally, since the word is registered in the CCEEPROM structure, the index ```ind``` is also updated and points at ```+ 1``` position from ```Bind, Find``` indexes.
+
+     > **Note:** The values of all indexes are saved in RAM memory. To save the index ```ind``` in the status cell of the CCEEPROM structure, use the ```void save_index();```
+
     ```ruby
     uint16_t Get_Index(char mode='a');
     ```
-     Calling it without argument, returns the current position of index ```ind``` value. This value is stored into a ```uint16_t``` variable which is stored (typically) into RAM memory. Powering-off arduino and powering it on again, a call to this function returns the last one index ```ind``` value which was saved into the status cells of CCEEPROM structure. Call this function with any argument except ```'a'``` to figure out what is the stored value of index ```ind``` in the status cells.
+     Call this function with no argument to return the value of current index ```ind``` saved in RAM memory. Call this function with an argument except ```'a'``` to get the stored value of index ```ind``` in the status cells of CCEEPROM structure.
      
     ```ruby
     void save_index();
     ```
-     It is used in order to save, into the status cells of the CCEEPROM structure, the current index ```ind``` value. In this way we can update the status cells, making sure that no data will be lost if arduino board loses power. The update of status cells every time a call to ```Save_Msg(char* temp);``` taking place, will reduce the lifespan of eeprom status cells (about 100.000 W-cycles). 
+     This function is used in order to save the current value of index ```ind``` in the status cells of the CCEEPROM structure. In this way we can update the status cells, making sure that no data will be lost if arduino board loses power. Updates in status cells, upon every call to ```Save_Msg(char* temp);``` takes place, reduces the lifespan of eeprom status cells (about 100.000 W-cycles). 
      
     ```ruby
     void Backward_Retrieve(char* Backward_Word,uint16_t d=0);
