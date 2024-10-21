@@ -1,5 +1,5 @@
 # CCircularEEPROM
-Circular queue data structure using Arduino's EEPROM 
+Circular queue data structure using Arduino's EEPROM.
 
 Data: char arrays
 
